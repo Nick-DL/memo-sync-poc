@@ -75,6 +75,7 @@ python memo-sync-poc\tools\check_fit3.py
 - 步骤：先跑 Java core 86/86 + 7/7，再构建 APK，上传 artifact；
 - 注意：`android-actions/setup-android@v3` 默认 packages 含已下线的 `tools`，会报 `Failed to find package 'tools'`；workflow 显式传 `packages: "platform-tools"`，再单独安装 `platforms;android-36` / `build-tools;36.0.0`；
 - 默认构建 `:shell:assembleDebug`——这是一个**只依赖 SaltUI、没有 Wear Engine SDK / Room KSP 的可构建 UI shell**，用来先验证 SaltUI/Compose/Android 工具链；
+- AGP 9.1.1 自带 Kotlin 是 2.2.10，而 SaltUI 3.0.0 要求 Kotlin 2.4.20；工程在 `gradle.properties` 里设置 `android.builtInKotlin=false` + `android.newDsl=false`，改用 `org.jetbrains.kotlin.android` 2.4.20 + `org.jetbrains.kotlin.plugin.compose` 2.4.20。这是临时 opt-out，AGP 10 会移除；届时等 SaltUI 与 built-in Kotlin 版本对齐再迁移；
 - 手动触发时可选择 `:app:assembleDebug`，等 Wear Engine SDK AAR 和 Room KSP 接入后再把默认目标切到 `:app`。
 
 > 仓库根目录假设：把 `memo-sync-poc/` 作为 GitHub repo 根目录；如果 push 的是上一层 `codespace/`，把 workflow 里的 `phone/...` 改成 `memo-sync-poc/phone/...`。

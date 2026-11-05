@@ -13,6 +13,22 @@ Two modules:
 The tested implementation remains the Java 17 core in `../core/` (see `../README.md`); the shell
 does not duplicate sync logic.
 
+**AGP 9 built-in Kotlin vs SaltUI 3.0.0**: AGP 9.1.1's built-in Kotlin is 2.2.10, while SaltUI
+3.0.0 is compiled with Kotlin 2.4.20. The project therefore opts out of built-in Kotlin in
+`gradle.properties`:
+
+```properties
+android.builtInKotlin=false
+android.newDsl=false   # kotlin-android is not compatible with AGP 9's new DSL
+```
+
+and applies `org.jetbrains.kotlin.android` 2.4.20 + `org.jetbrains.kotlin.plugin.compose` 2.4.20.
+This is a temporary escape hatch: AGP 10 removes it, so migrate once SaltUI and AGP's built-in
+Kotlin versions align. See
+[Migrate to built-in Kotlin](https://developer.android.com/build/migrate-to-built-in-kotlin).
+If you see `The 'org.jetbrains.kotlin.android' plugin is no longer required...`, it means
+`android.builtInKotlin=false` was not picked up (check `gradle.properties`).
+
 **Local blockers** (why this machine builds neither module directly)
 
 - The Android SDK **does** exist (`D:\Android\Sdk`: platforms android-33/34/36/36.1,

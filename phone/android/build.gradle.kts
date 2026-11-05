@@ -10,6 +10,8 @@
 //   https://moriafly.com/program/salt-ui/getting-started/installation.html
 plugins {
     id("com.android.application") version "9.1.1" apply false
+    // AGP 9.1.1's built-in Kotlin is 2.2.10; SaltUI 3.0.0 requires Kotlin 2.4.20.
+    // We opt out via android.builtInKotlin=false in gradle.properties and use this plugin.
     id("org.jetbrains.kotlin.android") version "2.4.20" apply false
     id("org.jetbrains.compose") version "1.12.2" apply false
     id("org.jetbrains.kotlin.plugin.compose") version "2.4.20" apply false

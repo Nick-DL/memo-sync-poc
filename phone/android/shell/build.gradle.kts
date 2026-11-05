@@ -6,6 +6,8 @@
 // the vendor SDK is available.
 plugins {
     id("com.android.application")
+    // Opted out of AGP built-in Kotlin (see gradle.properties) because SaltUI 3.0.0 needs
+    // Kotlin 2.4.20, while AGP 9.1.1's built-in Kotlin is 2.2.10.
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.compose")
     id("org.jetbrains.kotlin.plugin.compose")
