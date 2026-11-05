@@ -1,0 +1,2 @@
+rootProject.name = 'memo-sync-poc-watch'
+include ':entry'

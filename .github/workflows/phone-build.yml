@@ -1,0 +1,101 @@
+name: phone-build
+
+# Put this file at the repository root:
+#   .github/workflows/phone-build.yml
+# If the GitHub repo root is the parent `codespace` folder instead of `memo-sync-poc`,
+# change the `working-directory` / artifact paths from `phone/...` to
+# `memo-sync-poc/phone/...`.
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Gradle task to build"
+        required: true
+        default: ":shell:assembleDebug"
+        type: choice
+        options:
+          - ":shell:assembleDebug"
+          - ":app:assembleDebug"
+  push:
+    paths:
+      - "phone/**"
+      - "shared/**"
+      - ".github/workflows/phone-build.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: phone-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # Windows keeps the POC's PowerShell test scripts (`;` classpath separator) unchanged.
+    runs-on: windows-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: pwsh
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21 (SaltUI 3.x / AGP 9.x toolchain)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK 36
+        run: sdkmanager --install "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "9.3.1"
+
+      - name: Java core tests (86 tests + 7 merge cases)
+        working-directory: phone
+        run: .\run-tests.ps1
+
+      - name: Android SDK sanity
+        run: |
+          Write-Host "ANDROID_HOME=$env:ANDROID_HOME"
+          sdkmanager --list_installed
+
+      - name: Build debug APK
+        working-directory: phone/android
+        run: |
+          $task = "${{ github.event.inputs.target }}"
+          if ([string]::IsNullOrWhiteSpace($task)) { $task = ":shell:assembleDebug" }
+          Write-Host "Building $task"
+          gradle $task --stacktrace --no-daemon
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: memo-sync-phone-debug
+          path: |
+            phone/android/shell/build/outputs/apk/debug/*.apk
+            phone/android/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Summary
+        if: always()
+        run: |
+          @"
+          ### Phone build
+          - Runner: windows-latest
+          - JDK: 21
+          - Gradle: 9.3.1
+          - Target: `${{ github.event.inputs.target || ':shell:assembleDebug' }}`
+          - Core tests: see "Java core tests" step
+          - APK: see `memo-sync-phone-debug` artifact
+          "@ | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Encoding utf8 -Append

@@ -1,0 +1,23 @@
+# Android / Gradle
+.gradle/
+**/build/
+local.properties
+*.apk
+*.aab
+
+# POC build outputs (keep source + committed evidence files out/results.json if desired)
+phone/out/classes-*/
+phone/out/dev-classes/
+phone/out/gson-src/
+watch/entry/build/
+watch/.hvigor/
+
+# Local CI toolchain downloads (JDK/Gradle caches)
+.toolchain/
+refs/
+
+# OS / IDE
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

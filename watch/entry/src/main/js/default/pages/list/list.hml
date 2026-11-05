@@ -1,0 +1,21 @@
+<div class="page">
+    <div class="header">
+        <text class="title">备忘录</text>
+        <div class="actions">
+            <input class="btn" value="同步" on:click="onSync"></input>
+            <input class="btn newBtn" value="新建" on:click="onNew"></input>
+        </div>
+    </div>
+    <list class="memoList">
+        <list-item class="memoItem" for="{{memos}}" on:click="openMemo($item.id)">
+            <text class="itemTitle">{{$item.displayTitle}}</text>
+            <text class="itemPreview">{{$item.displayPreview}}</text>
+            <text class="itemMeta">{{$item.metaText}}</text>
+        </list-item>
+        <list-item class="emptyItem" if="{{memos.length == 0}}">
+            <text class="emptyText">暂无备忘录</text>
+            <text class="emptyHint">点右上角“新建”，用 crabKeyboard 输入</text>
+        </list-item>
+    </list>
+    <text class="status">{{status}}</text>
+</div>

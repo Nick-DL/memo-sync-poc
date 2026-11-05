@@ -1,0 +1,70 @@
+{
+  "results": [
+    {
+      "name": "watch_create",
+      "canonical": {
+        "title": "W",
+        "body": "watch",
+        "deleted": false
+      },
+      "conflict": null
+    },
+    {
+      "name": "phone_create",
+      "canonical": {
+        "title": "P",
+        "body": "phone",
+        "deleted": false
+      },
+      "conflict": null
+    },
+    {
+      "name": "different_fields",
+      "canonical": {
+        "title": "B",
+        "body": "Y",
+        "deleted": false
+      },
+      "conflict": null
+    },
+    {
+      "name": "same_field_conflict",
+      "canonical": {
+        "title": "A",
+        "body": "W",
+        "deleted": false
+      },
+      "conflict": {
+        "title": "[冲突] A",
+        "body": "P"
+      }
+    },
+    {
+      "name": "delete_vs_edit",
+      "canonical": {
+        "title": "A",
+        "body": "P",
+        "deleted": false
+      },
+      "conflict": null
+    },
+    {
+      "name": "edit_vs_delete",
+      "canonical": {
+        "title": "A",
+        "body": "W",
+        "deleted": true
+      },
+      "conflict": null
+    },
+    {
+      "name": "same_content_no_conflict",
+      "canonical": {
+        "title": "A",
+        "body": "X",
+        "deleted": false
+      },
+      "conflict": null
+    }
+  ]
+}

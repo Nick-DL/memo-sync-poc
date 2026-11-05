@@ -1,0 +1,259 @@
+[
+  {
+    "name": "watch_create",
+    "base": null,
+    "phone": null,
+    "watch": {
+      "id": "m1",
+      "title": "W",
+      "body": "watch",
+      "created": "0000000001000-0000-w",
+      "updated": "0000000001000-0000-w",
+      "titleHlc": "0000000001000-0000-w",
+      "bodyHlc": "0000000001000-0000-w",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 1
+    },
+    "expect": {
+      "canonical": { "title": "W", "body": "watch", "deleted": false },
+      "conflict": null
+    }
+  },
+  {
+    "name": "phone_create",
+    "base": null,
+    "phone": {
+      "id": "m2",
+      "title": "P",
+      "body": "phone",
+      "created": "0000000001100-0000-p",
+      "updated": "0000000001100-0000-p",
+      "titleHlc": "0000000001100-0000-p",
+      "bodyHlc": "0000000001100-0000-p",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 1
+    },
+    "watch": null,
+    "expect": {
+      "canonical": { "title": "P", "body": "phone", "deleted": false },
+      "conflict": null
+    }
+  },
+  {
+    "name": "different_fields",
+    "base": {
+      "id": "m1",
+      "title": "A",
+      "body": "X",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000001000-0000-p",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000001000-0000-p",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 1
+    },
+    "phone": {
+      "id": "m1",
+      "title": "B",
+      "body": "X",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000002000-0000-p",
+      "titleHlc": "0000000002000-0000-p",
+      "bodyHlc": "0000000001000-0000-p",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 2
+    },
+    "watch": {
+      "id": "m1",
+      "title": "A",
+      "body": "Y",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000003000-0000-w",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000003000-0000-w",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 2
+    },
+    "expect": {
+      "canonical": { "title": "B", "body": "Y", "deleted": false },
+      "conflict": null
+    }
+  },
+  {
+    "name": "same_field_conflict",
+    "base": {
+      "id": "m1",
+      "title": "A",
+      "body": "X",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000001000-0000-p",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000001000-0000-p",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 1
+    },
+    "phone": {
+      "id": "m1",
+      "title": "A",
+      "body": "P",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000004000-0000-p",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000004000-0000-p",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 2
+    },
+    "watch": {
+      "id": "m1",
+      "title": "A",
+      "body": "W",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000005000-0000-w",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000005000-0000-w",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 2
+    },
+    "expect": {
+      "canonical": { "title": "A", "body": "W", "deleted": false },
+      "conflict": { "title": "[冲突] A", "body": "P" }
+    }
+  },
+  {
+    "name": "delete_vs_edit",
+    "base": {
+      "id": "m1",
+      "title": "A",
+      "body": "X",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000001000-0000-p",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000001000-0000-p",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 1
+    },
+    "phone": {
+      "id": "m1",
+      "title": "A",
+      "body": "P",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000004000-0000-p",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000004000-0000-p",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 2
+    },
+    "watch": {
+      "id": "m1",
+      "title": "A",
+      "body": "X",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000003000-0000-w",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000001000-0000-p",
+      "deleted": true,
+      "deletedHlc": "0000000003000-0000-w",
+      "rev": 2
+    },
+    "expect": {
+      "canonical": { "title": "A", "body": "P", "deleted": false },
+      "conflict": null
+    }
+  },
+  {
+    "name": "edit_vs_delete",
+    "base": {
+      "id": "m1",
+      "title": "A",
+      "body": "X",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000001000-0000-p",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000001000-0000-p",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 1
+    },
+    "phone": {
+      "id": "m1",
+      "title": "A",
+      "body": "X",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000005000-0000-p",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000001000-0000-p",
+      "deleted": true,
+      "deletedHlc": "0000000005000-0000-p",
+      "rev": 2
+    },
+    "watch": {
+      "id": "m1",
+      "title": "A",
+      "body": "W",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000004000-0000-w",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000004000-0000-w",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 2
+    },
+    "expect": {
+      "canonical": { "title": "A", "body": "W", "deleted": true },
+      "conflict": null
+    }
+  },
+  {
+    "name": "same_content_no_conflict",
+    "base": {
+      "id": "m1",
+      "title": "A",
+      "body": "X",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000001000-0000-p",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000001000-0000-p",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 1
+    },
+    "phone": {
+      "id": "m1",
+      "title": "A",
+      "body": "X",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000006000-0000-p",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000006000-0000-p",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 2
+    },
+    "watch": {
+      "id": "m1",
+      "title": "A",
+      "body": "X",
+      "created": "0000000001000-0000-p",
+      "updated": "0000000005000-0000-w",
+      "titleHlc": "0000000001000-0000-p",
+      "bodyHlc": "0000000005000-0000-w",
+      "deleted": false,
+      "deletedHlc": null,
+      "rev": 2
+    },
+    "expect": {
+      "canonical": { "title": "A", "body": "X", "deleted": false },
+      "conflict": null
+    }
+  }
+]

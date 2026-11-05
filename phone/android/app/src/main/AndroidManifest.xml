@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  NOT COMPILED IN THIS POC - Android source skeleton only.
+
+  Phone side of "memo sync" (design doc: daysmatter-analysis/双向备忘录App-两端设计方案.md §7.3).
+  Key requirements encoded here:
+    * <queries> for com.huawei.health - Android 11+ package visibility, needed by the
+      Wear Engine / HiWear SDK to bind 华为运动健康's WearEngineService.
+    * HMS appid meta-data for the Wear Engine Kit.
+    * NO android.permission.BLUETOOTH / BLUETOOTH_CONNECT: the watch link is owned by
+      华为运动健康; the app only talks to it through Wear Engine P2P.
+  The Java 17 core (../core) is the tested part of the POC; this manifest has not been
+  validated with aapt/manifest-merger in this environment.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- HMS availability / Wear Engine version checks only. Not a Bluetooth permission. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <queries>
+        <!-- Android 11+ package visibility for Wear Engine P2P (required by the design doc). -->
+        <package android:name="com.huawei.health" />
+    </queries>
+
+    <application
+        android:allowBackup="false"
+        android:label="Memo Sync POC"
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar">
+
+        <!-- HMS appid - replace YOUR_HMS_APP_ID and keep debug/release flavors separate. -->
+        <meta-data
+            android:name="com.huawei.hms.client.appid"
+            android:value="appid=YOUR_HMS_APP_ID" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+          TODO(Android): optional SyncForegroundService for background sync (design doc §5.4).
+          TODO(Android): declare no Bluetooth permissions on purpose - do not add them later.
+        -->
+    </application>
+
+</manifest>

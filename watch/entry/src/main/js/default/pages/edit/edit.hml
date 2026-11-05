@@ -1,0 +1,19 @@
+<div class="page">
+    <div class="header">
+        <text class="title">编辑</text>
+        <input class="btn" value="返回" on:click="onBack"></input>
+    </div>
+    <div class="panel">
+        <text class="label">标题</text>
+        <text class="value">{{displayTitle}}</text>
+        <text class="hint">{{titleHint}}</text>
+        <text class="label">正文</text>
+        <text class="value">{{displayBody}}</text>
+        <text class="hint">{{bodyHint}}</text>
+    </div>
+    <div class="footer">
+        <input class="btn fieldBtn" value="编辑标题" on:click="editTitle"></input>
+        <input class="btn fieldBtn" value="编辑正文" on:click="editBody"></input>
+    </div>
+    <text class="status">{{status}}</text>
+</div>

@@ -1,0 +1,12 @@
+{
+  "name": "memo-sync-poc-watch",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Huawei Watch Fit 3 (Lite Wearable 408x480) memo POC: HAP skeleton + HLC/merge/repo/sync JS core + Node tests",
+  "scripts": {
+    "test:merge": "node test/run-merge-cases.mjs",
+    "test:unit": "node test/run-tests.mjs",
+    "test": "node test/run-merge-cases.mjs && node test/run-tests.mjs"
+  }
+}

@@ -1,0 +1,21 @@
+<div class="page">
+    <div class="header">
+        <text class="title">详情</text>
+        <input class="btn" value="返回" on:click="onBack"></input>
+    </div>
+    <text class="memoTitle">{{displayTitle}}</text>
+    <text class="memoMeta">{{metaText}}</text>
+    <list class="bodyList">
+        <list-item class="bodyItem" for="{{paragraphs}}">
+            <text class="paragraph">{{$item}}</text>
+        </list-item>
+        <list-item class="bodyItem" if="{{paragraphs.length == 0}}">
+            <text class="paragraph emptyParagraph">（空正文，点“编辑”打开键盘输入）</text>
+        </list-item>
+    </list>
+    <div class="footer">
+        <input class="btn editBtn" value="编辑" on:click="onEdit"></input>
+        <input class="btn deleteBtn" value="删除" on:click="onDelete"></input>
+    </div>
+    <text class="status">{{status}}</text>
+</div>

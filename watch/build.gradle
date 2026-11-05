@@ -1,0 +1,39 @@
+// memo-sync-poc / watch — Lite Wearable (FA model) HAP project root
+//
+// 上游 crabKeyboard 是传统的 Gradle + com.huawei.ohos:hap 工程（Lite Wearable 只有 FA 模型），
+// 不是 DevEco 5 的 hvigor/stage 工程；这里沿用同一套构建方式，便于直接复用 keyboard_rect。
+//
+// 环境要求（README “构建阻塞” 有详细说明）：
+//   - DevEco Studio 3.x（本项目对着 3.1/3.0 的 Gradle ohos 插件写）
+//   - API 7 的 Lite Wearable SDK（compileSdkVersion 7）
+//   - 能访问 repo.huaweicloud.com 拉 com.huawei.ohos:hap:3.1.5.0
+apply plugin: 'com.huawei.ohos.app'
+
+ohos {
+    compileSdkVersion 7
+}
+
+buildscript {
+    repositories {
+        maven {
+            url 'https://repo.huaweicloud.com/repository/maven/'
+        }
+        maven {
+            url 'https://developer.huawei.com/repo/'
+        }
+    }
+    dependencies {
+        classpath 'com.huawei.ohos:hap:3.1.5.0'
+    }
+}
+
+allprojects {
+    repositories {
+        maven {
+            url 'https://repo.huaweicloud.com/repository/maven/'
+        }
+        maven {
+            url 'https://developer.huawei.com/repo/'
+        }
+    }
+}
