@@ -1,8 +1,7 @@
-// NOT COMPILED IN THIS POC - optional Gradle wiring for the Java 17 core.
+// Java 17 sync core, consumed by the Android modules.
 //
-// The authoritative POC build is javac + run-tests.ps1 (see ../README.md). This file only
-// exists so the Android app skeleton shows how the same core sources would be consumed as a
-// :core-jvm module; it is not executed here (no Gradle on PATH, offline environment).
+// The authoritative POC test path is javac + run-tests.ps1 (see ../README.md). This module
+// exists so the Android app can depend on the same tested core sources as :core-jvm.
 plugins {
     `java-library`
 }
@@ -14,9 +13,8 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-repositories {
-    mavenCentral()
-}
+// Repositories are declared centrally in settings.gradle.kts
+// (RepositoriesMode.FAIL_ON_PROJECT_REPOS); do not add project repositories here.
 
 dependencies {
     // Vendored jar keeps the POC buildable offline (see ../lib/gson-2.11.0.jar).
